@@ -1,24 +1,29 @@
 #!/bin/bash
 
 function usage() {
-    echo "Usage: encode [-p] [-d] [-s] [-e]"
-    echo "Converts file encoding of multiple files."
+    echo "Usage: ./convert-encoding.sh [-p] [-d] [-s] [-e]"
+    echo ""
+    echo "Converts file encoding/charset of multiple files inside the current"
+    echo "directory matching a pattern."
+    echo ""
     echo "Uses 'file -i' and 'iconv' under the hood"
     echo ""
     echo "Example usage for automated encoding detection"
-    echo "encode -p *.java -d -e UTF-8"
-    echo "";
-    echo "Example usage for defined encoding detection"
-    echo "encode -p *.xml -s ISO-8859-1 -e UTF-8"
+    echo "This converts all *.java files from unknown charset to UTF-8"
+    echo "./convert-encoding.sh -p *.java -d -e UTF-8"
+    echo ""
+    echo "Example usage for defined source encoding/charset"
+    echo "This converts all *.xml files from ISO-8859-1 to UTF-8"
+    echo "./convert-encoding.sh -p *.xml -s ISO-8859-1 -e UTF-8"
     echo ""
     echo "Arguments:"
     echo "  -p, --pattern           File pattern"
-    echo "  -d, --detect            Auto detect source encoding"
+    echo "  -d, --detect            Auto detect source encoding/charset"
     echo "                          You must ether provide this argument or -s"
-    echo "  -s, --source-encoding   Encoding of source files"
-    echo "  -e, --encoding          Target encoding"
+    echo "  -s, --source-encoding   Encoding/charset of source files"
+    echo "  -e, --encoding          Target encoding/charset"
     echo "  -v, --verbose           Prints filenames, source and target encoding"
-    echo "  -t, --dry-run           Dry run. No conversion happens"
+    echo "  -t, --dry-run           No conversion happens. Always verbose"
     echo "  -h, --help              Shows this help output"
     exit 0
 }
@@ -107,6 +112,11 @@ then
     usage
 fi
 
+if [ "$dry_run" == "true" ]
+then
+    echo "Dry-Run..."
+fi
+
 # Convert encoding
 for file in $(find . -type f -name "$file_pattern")
 do
@@ -119,11 +129,10 @@ do
         source_encoding=${defined_source_encoding}
     fi
 
-    # If verbose, print source and target encoding
-    if [ "${verbose}" == "true" ]
+    # If verbose or dry run, print source and target encoding
+    if [ "${verbose}" == "true" ] || [ "$dry_run" == "true" ]
     then
-        echo "source encoding: ${source_encoding} target-encoding: ${encoding}. File:"
-        echo "${file}"
+        echo "Source encoding: ${source_encoding}; target encoding: ${encoding}; ${file}"
     fi
     # Don't execute if it's a dry-run
     if [ -z ${dry_run+x} ]
