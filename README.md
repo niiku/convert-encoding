@@ -1,5 +1,5 @@
 # convert-encoding.sh
-Converts the encoding/charset of all files matching a pattern inside a directory.
+Converts the encoding/charset of all files matching a pattern inside a directory. Please feel free to issue improvements.
 
 # Getting convert-encoding.sh
 Simply execute the following:
