@@ -1,5 +1,5 @@
 # convert-encoding.sh
-Converts the encoding/charset of all files matching a pattern inside a directory. Please feel free to issue improvements.
+Converts the encoding/charset of all files matching a pattern inside a directory. Please feel free to issue improvements. This script runs in bash only. For Windows, you need cygwin or MinGW. 
 
 # Getting convert-encoding.sh
 Simply execute the following:
@@ -29,7 +29,7 @@ chmod +x convert-encoding.sh
 To convert all *.java files inside a directory from a unknown encoding to UTF-8
 ```
 $ cd /path/to/directory/with/files
-$ /path/to/convert-encoding.sh -p *.java -d -e UTF-8`
+$ /path/to/convert-encoding.sh -p *.java -d -e UTF-8
 ```
 
 ## Dry-Run
