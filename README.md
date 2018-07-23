@@ -34,7 +34,7 @@ $ /path/to/convert-encoding.sh -p *.java -d -e UTF-8
 
 ## Dry-Run
 
-If you want to check what files and how they would be converted, simply add `-t` or `--dry-run` as argument:
+If you want to check which files would be converted and what their detected encoding is, simply add `-t` or `--dry-run` as argument:
 
 ```
 $ cd /path/to/directory/with/files
